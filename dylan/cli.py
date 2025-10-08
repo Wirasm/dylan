@@ -8,6 +8,7 @@ from rich.console import Console
 from rich.table import Table
 
 from .utility_library.dylan_dev.dylan_dev_cli import dev
+from .utility_library.dylan_goodbye.dylan_goodbye_cli import goodbye
 from .utility_library.dylan_pr.dylan_pr_cli import pr
 from .utility_library.dylan_release.dylan_release_cli import release_app
 from .utility_library.dylan_review.dylan_review_cli import review
@@ -28,6 +29,7 @@ app.add_typer(release_app, name="release", help="Create and manage project relea
 app.command(name="review", help="Run AI-powered code reviews on git branches")(review)
 app.command(name="dev", help="Implement fixes from code reviews")(dev)
 app.command(name="pr", help="Create pull requests with AI-generated descriptions")(pr)
+app.command(name="goodbye", help="Print a friendly farewell message")(goodbye)
 
 
 @app.callback(invoke_without_command=True)
@@ -75,6 +77,11 @@ def _main(ctx: typer.Context) -> None:
             "release",
             "Manage project releases",
             "dylan release --minor --tag"
+        )
+        table.add_row(
+            "goodbye",
+            "Say farewell",
+            "dylan goodbye"
         )
 
         console.print(table)
