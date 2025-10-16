@@ -103,6 +103,10 @@ addopts = [
     "--strict-markers",
 ]
 norecursedirs = ["**/provider_clis/[!tests]*"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+]
 
 [tool.coverage.run]
 source = ["dylan"]

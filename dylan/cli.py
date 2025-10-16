@@ -8,6 +8,7 @@ from rich.console import Console
 from rich.table import Table
 
 from .utility_library.dylan_dev.dylan_dev_cli import dev
+from .utility_library.dylan_health.dylan_health_cli import health
 from .utility_library.dylan_pr.dylan_pr_cli import pr
 from .utility_library.dylan_release.dylan_release_cli import release_app
 from .utility_library.dylan_review.dylan_review_cli import review
@@ -25,6 +26,7 @@ app = typer.Typer(
 )
 app.add_typer(standup_app, name="standup", help="Generate daily standup reports from git activity")
 app.add_typer(release_app, name="release", help="Create and manage project releases")
+app.command(name="health", help="Check system health and dependencies")(health)
 app.command(name="review", help="Run AI-powered code reviews on git branches")(review)
 app.command(name="dev", help="Implement fixes from code reviews")(dev)
 app.command(name="pr", help="Create pull requests with AI-generated descriptions")(pr)
@@ -55,6 +57,11 @@ def _main(ctx: typer.Context) -> None:
             "standup",
             "Generate daily standup reports",
             "dylan standup --since yesterday"
+        )
+        table.add_row(
+            "health",
+            "Check system health and dependencies",
+            "dylan health --verbose"
         )
         table.add_row(
             "review",
