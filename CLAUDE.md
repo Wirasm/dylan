@@ -90,11 +90,17 @@ uv pip install -e .
 ### Development Commands
 
 ```bash
-# Run all tests
+# Run all tests (sequential)
 uv run pytest
+
+# Run all tests in parallel (faster for large test suites)
+uv run pytest -n auto
 
 # Run specific tests
 uv run pytest concept_library/full_review_loop/tests/ -v
+
+# Run specific tests in parallel with 4 workers
+uv run pytest dylan/tests/ -n 4 -v
 
 # Format code
 uv run black .
@@ -105,6 +111,8 @@ uv run ruff check .
 # Run type checker
 uv run mypy .
 ```
+
+**Note on Parallel Testing**: Use `pytest -n auto` for parallel test execution when running large test suites (20+ tests). For small test suites or debugging, sequential execution (`pytest` without `-n`) is recommended. See TESTING.md for detailed parallel execution documentation.
 
 ### Running Core Components
 
